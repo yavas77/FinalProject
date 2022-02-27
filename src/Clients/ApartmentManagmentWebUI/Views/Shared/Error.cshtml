@@ -1,0 +1,12 @@
+﻿@model LogError
+@{
+    ViewData["Title"] = "Hata "+Model.StatusCode;
+}
+
+<h1 class="text-danger">Bir hata oluştu.</h1>
+<h2 class="text-danger">Üzgünüz. İşleminizi gerçekleştiremedik.</h2>
+
+<h3>@Model.StatusCode</h3>
+<p>
+    @Model.Message
+</p>

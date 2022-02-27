@@ -1,0 +1,16 @@
+﻿@model List<MessageListModel>
+
+@if (Model.Count > 0)
+{
+	<p>
+		Gelen Mesajlar
+		<span class="badge badge-info right">@Model.Count.ToString()</span>
+	</p>
+}
+else
+{
+	<p>
+		Gelen Mesajlar
+	</p>
+
+}

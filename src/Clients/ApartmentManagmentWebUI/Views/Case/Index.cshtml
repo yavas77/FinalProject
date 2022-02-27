@@ -1,0 +1,104 @@
+﻿@model List<CaseListModel>
+@{
+	ViewData["Title"] = "Index";
+}
+
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+	<div class="container-fluid">
+		<div class="row mb-2">
+			<div class="col-sm-12">
+				<h1 class="m-0">Ödeme İşlem listesi</h1>
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+	</div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+	<div class="container-fluid">
+		<!-- /.row -->
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title"></h3>
+
+						<div class="card-tools">
+							@*                          <form method="get">
+								<div class="input-group input-group-sm" style="width: 150px;">
+								<input type="text" name="s" class="form-control float-right" placeholder="Ara">
+
+								<div class="input-group-append">
+								<button type="submit" class="btn btn-default">
+								<i class="fas fa-search"></i>
+								</button>
+								</div>
+								</div>
+								</form>*@
+						</div>
+					</div>
+					<!-- /.card-header -->
+					@if (Model.Count > 0)
+					{
+
+
+						<div class="card-body table-responsive p-0">
+							<table class="table table-hover text-nowrap">
+								<thead>
+									<tr>
+										<th>Kullanıcı</th>
+										<th>Gelir/Gider</th>
+										<th>Tutar</th>
+										<th>Ödeme Tarihi</th>
+										
+									</tr>
+								</thead>
+								<tbody>
+
+									@foreach (var caseListModel in Model)
+									{
+										<tr data-id="@caseListModel.Id">
+											<td>@caseListModel.User</td>
+											<td>@caseListModel.Type</td>
+											<td>@caseListModel.Amount</td>
+											<td>@caseListModel.CreatedDate</td>
+											
+										</tr>
+									}
+
+
+								</tbody>
+							</table>
+						</div>
+						<!-- /.card-body -->
+					}
+					else
+					{
+						<span>Kayıtlı ödeme bulunamadı.</span>
+					}
+				</div>
+				<!-- /.card -->
+			</div>
+		</div>
+		<!-- /.row -->
+	</div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+@section Scripts{
+<script>
+	$().ready(function () {
+		$(".delete").click(function () {
+			var block = {
+				id: $(this).data("id")
+			}
+
+			$.ShowConfirm('Dikkat', 'Blok tamamen silinecek, Devam etmek istiyor musunuz?', 'Evet', 'İptal', function () { $.AjaxDelete('/Block/Delete/', block) }
+			);
+
+		});
+	});
+</script>
+
+}

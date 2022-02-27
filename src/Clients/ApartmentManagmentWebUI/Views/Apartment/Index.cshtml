@@ -1,0 +1,109 @@
+﻿@model List<ApartmentListModel>
+@{
+	ViewData["Title"] = "Index";
+}
+
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+	<div class="container-fluid">
+		<div class="row mb-2">
+			<div class="col-sm-12">
+				<h1 class="m-0">Daire listesi</h1>
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+	</div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+	<div class="container-fluid">
+		<!-- /.row -->
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title"></h3>
+
+						<div class="card-tools">
+						</div>
+					</div>
+					<!-- /.card-header -->
+					@if (Model.Count > 0)
+					{
+
+
+						<div class="card-body table-responsive p-0">
+							<table class="table table-hover text-nowrap">
+								<thead>
+									<tr>
+										<th>Bulunduğu Blok</th>
+										<th>Daire Türü</th>
+										<th>No</th>
+										@*<th>Kat</th>*@
+										<th style="width:120px">Durumu</th>
+										<th style="width:120px">Aktif/Pasif</th>
+										<th style="width:120px"></th>
+									</tr>
+								</thead>
+								<tbody>
+
+									@foreach (var apartment in Model)
+									{
+										<tr data-id="@apartment.Id">
+											<td>@apartment.Block</td>
+											<td>@apartment.ApartmentType</td>
+											<td>@apartment.No</td>
+										
+											<td>
+												@if(apartment.Status)
+												{
+													<span class=\"badge badge-success badge\">Boş</span>
+												}
+												else
+												{
+													<span class=\"badge badge-warning badge\">Dolu</span>
+												}
+											</td>
+											<td>@Html.Raw(Html.StatusBadge(@apartment.IsActive))</td>
+											<td>
+												<a asp-action="Update" asp-route-id="@apartment.Id" class="btn btn-outline-warning btn-sm"> Düzenle </a>
+												<a class="delete btn btn-outline-danger btn-sm" data-id="@apartment.Id">Sil</a>
+											</td>
+										</tr>
+									}
+
+
+								</tbody>
+							</table>
+						</div>
+						<!-- /.card-body -->
+					}
+					else
+					{
+						<span>Kayıtlı Daire bulunamadı.</span>
+					}
+				</div>
+				<!-- /.card -->
+			</div>
+		</div>
+		<!-- /.row -->
+	</div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+@section Scripts{
+<script>
+	$().ready(function () {
+		$(".delete").click(function () {
+			var deleteApartmentModel = {
+				id: $(this).data("id")
+			}
+
+			$.ShowConfirm('Dikkat', 'Daire tamamen silinecek, Devam etmek istiyor musunuz?', 'Evet', 'İptal', function () { $.AjaxDelete('/Apartment/Delete/', deleteApartmentModel) }
+			);
+
+		});
+	});
+</script>
+
+}

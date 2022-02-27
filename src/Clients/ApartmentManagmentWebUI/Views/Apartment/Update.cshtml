@@ -1,0 +1,60 @@
+﻿@model UpdateApartmentModel
+@{
+    ViewData["Title"] = "Update";
+}
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-12">
+                <h1 class="m-0">Daire Güncelle</h1>
+            </div><!-- /.col -->           
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Update" method="post" class="w-75 mx-auto mt-2 p-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="BlockId"></label>
+                                <select asp-for="BlockId" asp-items="ViewBag.Blocks" class="form-control">
+                                    <option value="-1" disabled selected>Seçiniz..</option>
+                                </select>
+                                <span asp-validation-for="BlockId" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="ApartmentType"></label>
+                                <input asp-for="ApartmentType" class="form-control" />
+                                <span asp-validation-for="ApartmentType" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="No"></label>
+                                <input asp-for="No" class="form-control" />
+                                <span asp-validation-for="No" class="text-danger"></span>
+                            </div>                           
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Kaydet</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- /.card-body -->
+
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->

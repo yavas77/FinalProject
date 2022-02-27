@@ -1,0 +1,102 @@
+﻿@model List<ApartmentExpenseListModel>
+@{
+	ViewData["Title"] = "Index";
+}
+
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+	<div class="container-fluid">-
+		<div class="row mb-2">
+			<div class="col-sm-12">
+				<h1 class="m-0">Fatura Listesi</h1>
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+	</div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+	<div class="container-fluid">
+		<!-- /.row -->
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title"></h3>
+
+						<div class="card-tools">
+					                       
+						</div>
+					</div>
+					<!-- /.card-header -->
+					@if (Model.Count > 0)
+					{
+
+
+						<div class="card-body table-responsive p-0">
+							<table class="table table-hover text-nowrap">
+								<thead>
+									<tr>
+										<th>Fatura</th>
+										<th>Daire</th>
+										<th>Kullanıcı</th>
+										<th>Dönemi</th>
+										<th>Yılı</th>
+										<th>Tutar</th>
+										@*<th style="width:120px">Durumu</th>*@
+										<th style="width:120px"></th>
+									</tr>
+								</thead>
+								<tbody>
+
+									@foreach (var bill in Model)
+									{
+										<tr data-id="@bill.Id">
+											<td>@bill.Bill</td>
+											<td>@bill.Apartment</td>
+											<td>@bill.User</td>		
+											<td>@bill.Month</td>		
+											<td>@bill.Year</td>		
+											<td>@bill.Amount</td>								
+											<td>
+												<a asp-action="Update" asp-route-id="@bill.Id" class="btn btn-outline-warning btn-sm"> Düzenle </a>
+												<a class="delete btn btn-outline-danger btn-sm" data-id="@bill.Id">Sil</a>
+											</td>
+										</tr>
+									}
+
+
+								</tbody>
+							</table>
+						</div>
+						<!-- /.card-body -->
+					}
+					else
+					{
+						<span>Kayıtlı Gider Faturası bulunamadı.</span>
+					}
+				</div>
+				<!-- /.card -->
+			</div>
+		</div>
+		<!-- /.row -->
+	</div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+@section Scripts{
+<script>
+	$().ready(function () {
+		$(".delete").click(function () {
+			var deleteApartmentExpenseModel = {
+				id: $(this).data("id")
+			}
+
+			$.ShowConfirm('Dikkat', 'Fatura tamamen silinecek, Devam etmek istiyor musunuz?', 'Evet', 'İptal', function () { $.AjaxDelete('/ApartmentExpense/Delete/', deleteApartmentExpenseModel) }
+			);
+
+		});
+	});
+</script>
+
+}

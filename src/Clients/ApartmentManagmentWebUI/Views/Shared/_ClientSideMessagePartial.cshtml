@@ -1,0 +1,27 @@
+﻿@{
+    if (TempData["Message"] != null)
+    {
+        var messageObj = Newtonsoft.Json.JsonConvert.DeserializeObject<JResult>(TempData["Message"].ToString());
+
+        @*if (TempData["error"] != null)
+            {
+                <script>$.ShowError('Hata','@TempData["error"]')</script>
+            }
+            if (TempData["success"] != null)
+            {
+                <script>$.ShowSuccess('Başarılı','@TempData["success"]')</script>
+            }*@
+
+        if (messageObj.Status == Status.Ok)
+        {
+            <script>$.ShowSuccess('@Html.Raw(messageObj.Title)','@Html.Raw(messageObj.Message)')</script>
+
+        }
+        else if (messageObj.Status == Status.Error)
+        {
+            <script>$.ShowError('@Html.Raw(messageObj.Title)','@Html.Raw(messageObj.Message)')</script>
+        }
+
+    }
+
+}
